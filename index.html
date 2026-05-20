@@ -1,0 +1,633 @@
+<!DOCTYPE html><html class="dark" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Abismo | Proyecto Final Corte III</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-highest": "#2f3446",
+            "secondary": "#cebdff",
+            "surface-container-high": "#25293a",
+            "accent-cyan": "#7cdbff",
+            "on-background": "#dee1f9",
+            "surface-raised": "#121a33",
+            "surface-deep": "#0b1020",
+            "surface-tint": "#73d3f6",
+            "primary": "#d0f0ff",
+            "background": "#0e1323",
+            "accent-violet": "#a78bfa",
+            "outline": "#889298",
+            "surface-container": "#1a1f30",
+            "glass-stroke": "rgba(255, 255, 255, 0.12)",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            "card": "24px",
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    :root {
+      --bg: #0b1020;
+      --bg2: #121a33;
+      --accent: #7cdbff;
+      --accent2: #a78bfa;
+      --line: rgba(255, 255, 255, 0.1);
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-hover: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 0% 0%, rgba(124, 219, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 100% 0%, rgba(167, 139, 250, 0.15) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: #dee1f9;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+
+    .glass-panel {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .heading-impact {
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .aspect-16-9 {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Presentation Slide Transitions */
+    .slide {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    @media (min-width: 768px) {
+      .slide { padding: 4rem; }
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .eyebrow-gradient {
+      background: linear-gradient(90deg, var(--accent), #d8f7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body class="selection:bg-accent-cyan/30">
+<div class="max-w-[1280px] mx-auto px-5 lg:px-20 py-10">
+<!-- Header -->
+<header class="mb-12">
+<div class="glass-panel p-8 rounded-card flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="brand text-center md:text-left">
+<h1 class="text-4xl md:text-6xl font-extrabold heading-impact bg-gradient-to-r from-primary to-accent-violet bg-clip-text text-transparent">
+            Abismo
+          </h1>
+<p class="text-on-surface-variant mt-2 max-w-xl font-medium">
+            Corte III: Producto Final Blog - Análisis de la Condición Cyber-Humanista.
+          </p>
+</div>
+<div class="flex flex-wrap gap-2 justify-center">
+<span class="px-4 py-1.5 rounded-full border border-line bg-white/5 text-xs font-semibold text-accent-cyan tracking-wider">#CORTE-III</span>
+<span class="px-4 py-1.5 rounded-full border border-line bg-white/5 text-xs font-semibold text-accent-violet tracking-wider">#CYBERHUMAN</span>
+<span class="px-4 py-1.5 rounded-full border border-line bg-white/5 text-xs font-semibold text-primary tracking-wider">#ABISMO</span>
+</div>
+</div>
+<nav class="mt-8 flex flex-wrap justify-center gap-3">
+<a class="glass-panel px-6 py-2.5 rounded-full hover:bg-white/10 transition-all font-semibold text-sm" href="#presentacion">Presentación</a>
+<a class="glass-panel px-6 py-2.5 rounded-full hover:bg-white/10 transition-all font-semibold text-sm" href="#narrativo">Narrativo</a>
+<a class="glass-panel px-6 py-2.5 rounded-full hover:bg-white/10 transition-all font-semibold text-sm" href="#lirico">Lírico</a>
+<a class="glass-panel px-6 py-2.5 rounded-full hover:bg-white/10 transition-all font-semibold text-sm" href="#argumentativo">Argumentativo</a>
+<a class="glass-panel px-6 py-2.5 rounded-full hover:bg-white/10 transition-all font-semibold text-sm" href="#academico">Académico</a>
+<a class="glass-panel px-6 py-2.5 rounded-full hover:bg-white/10 transition-all font-semibold text-sm" href="#multimedia">Multimedia</a>
+</nav>
+</header>
+<!-- Presentation Section (Canva-like Deck) -->
+<section class="mb-16 pt-4" id="presentacion">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<span class="eyebrow-gradient text-xs mb-1 block">Recurso Interactivo</span>
+<h3 class="text-3xl font-bold heading-impact">Bitácora de Vuelo: El Proyecto</h3>
+<p class="text-on-surface-variant">Arquitectura, metodología y síntesis del proceso creativo.</p>
+</div>
+</div>
+<div class="glass-panel rounded-card overflow-hidden shadow-2xl">
+<div class="aspect-16-9 bg-surface-deep relative overflow-hidden flex items-center justify-center">
+<!-- SLIDE 1: COVER -->
+<div class="slide bg-gradient-to-br from-surface-deep to-surface-raised active" id="slide-0">
+<div class="max-w-4xl mx-auto text-center">
+<h4 class="text-6xl md:text-8xl font-black heading-impact mb-6 tracking-tighter">ABISMO<br><span class="text-accent-cyan">DIGITAL</span></h4>
+<div class="h-1 w-24 bg-accent-violet mx-auto mb-8"></div>
+<p class="text-xl text-on-surface uppercase tracking-[0.3em] font-medium mb-12">Bitácora Digital Multigenérica</p>
+<div class="flex flex-wrap justify-center gap-6 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<div class="">Laura Villalba</div>
+<div class="">Mabel Rincon</div>
+<div class="">Juan Montealegre</div>
+<div class="">Manuel Cruz</div>
+<div class="">Camila Bermudez</div>
+</div>
+</div>
+</div>
+<!-- SLIDE 2: PLANNING -->
+<div class="slide bg-surface-deep" id="slide-1">
+<div class="grid md:grid-cols-2 gap-12 items-center h-full">
+<div class="space-y-6">
+<h4 class="text-4xl font-bold heading-impact text-accent-violet">01. Fase de Planeación</h4>
+<div class="p-6 glass-panel rounded-xl border-l-4 border-accent-violet">
+<h5 class="text-xs uppercase font-bold text-accent-violet mb-4">Especificaciones Técnicas</h5>
+<ul class="text-sm space-y-2 opacity-80">
+<li class="">• Arquitectura de Información: Basada en 5 géneros.</li>
+<li class="">• Stack: HTML5, Tailwind CSS, JS (Vanilla).</li>
+<li class="">• Diseño: Estética Cyber-Humanista (Glassmorphism).</li>
+</ul>
+</div>
+</div>
+<div class="space-y-6">
+<h5 class="text-xs uppercase font-bold text-primary mb-4">Roles de Equipo</h5>
+<div class="grid grid-cols-1 gap-2">
+<div class="p-3 bg-white/5 rounded-lg border border-line flex justify-between items-center">
+<span class="text-xs font-bold">Laura Villalba</span>
+<span class="text-[10px] opacity-60">Editora y Estilo</span>
+</div>
+<div class="p-3 bg-white/5 rounded-lg border border-line flex justify-between items-center">
+<span class="text-xs font-bold">Mabel Rincon</span>
+<span class="text-[10px] opacity-60">Creadora Literaria</span>
+</div>
+<div class="p-3 bg-white/5 rounded-lg border border-line flex justify-between items-center">
+<span class="text-xs font-bold">Juan Montealegre</span>
+<span class="text-[10px] opacity-60">Investigador Académico</span>
+</div>
+<div class="p-3 bg-white/5 rounded-lg border border-line flex justify-between items-center">
+<span class="text-xs font-bold">Manuel Cruz</span>
+<span class="text-[10px] opacity-60">Productor Multimedia</span>
+</div>
+<div class="p-3 bg-white/5 rounded-lg border border-line flex justify-between items-center">
+<span class="text-xs font-bold">Camila Bermudez</span>
+<span class="text-[10px] opacity-60">Diseñadora de Interfaz</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SLIDE 3: NARRATIVE -->
+<div class="slide bg-surface-raised" id="slide-2">
+<div class="grid md:grid-cols-2 gap-8 items-center">
+<div class="rounded-2xl overflow-hidden border border-line shadow-xl">
+<img alt="Narrative Concept" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujxCgKI8tfunDK3IPaC6X2lMF2CPQ0mWNpx_U8wn8t78DqbuoQjVqUwnMa2HZ-8V9iZk5GDaet37TrKmyYvRDWqdNwPRR3tjE-R4yStptcMMyIuqvER5MYh4zl-cr3pT_36XpekGTjaqxl0IxJ1nQMtlo5yCbo2hwgp6r1cR0X1L0ZbGYBhMsYf8DHjg0XHaZBUFwHOtGo0Rl3jU7Sv4dVMFv0v4pglKZoVq3pWckpL64iMY3TdshnjQ8I">
+</div>
+<div>
+<h4 class="text-4xl font-bold heading-impact mb-6">Género <span class="text-red-500">Narrativo</span></h4>
+<p class="text-sm mb-6 opacity-80 italic">"La Trampa del Próximo Episodio"</p>
+<ul class="space-y-4">
+<li class="flex gap-3">
+<span class="w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center text-xs font-bold">1</span>
+<p class="text-sm">El conflicto interno frente al contador de 5 segundos.</p>
+</li>
+<li class="flex gap-3">
+<span class="w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center text-xs font-bold">2</span>
+<p class="text-sm">La parálisis de la voluntad bajo el estímulo visual.</p>
+</li>
+<li class="flex gap-3">
+<span class="w-6 h-6 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center text-xs font-bold">3</span>
+<p class="text-sm">La fragmentación de la realidad tras horas de scroll.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- SLIDE 4: LYRIC -->
+<div class="slide bg-gradient-to-tr from-surface-deep to-accent-violet/10" id="slide-3">
+<div class="max-w-2xl mx-auto text-center">
+<h4 class="text-4xl font-bold heading-impact mb-4">Género <span class="text-accent-violet">Lírico</span></h4>
+<div class="p-6 glass-panel rounded-3xl border-accent-violet/30 italic relative">
+<p class="text-lg leading-relaxed font-light mb-4">"La Era Digital!"</p>
+<p class="text-xs opacity-70 mb-4">— EmilioDr.</p>
+<div class="h-[150px] overflow-y-auto text-sm px-4 space-y-4">
+<p class="">Infinita información por doquier,<br>desde las redes hasta el amanecer,<br>en pantallas brillantes y frías,<br>vivimos nuestras alegrías y agonías.</p>
+<p class="">Con un solo clic el mundo se abre,<br>distancias se acortan, el tiempo se labre,<br>pero en medio de tanta conexión,<br>¿dónde quedó nuestra verdadera emoción?</p>
+<p class="">La tecnología avanza sin cesar,<br>nuevos horizontes por explorar,<br>más no olvidemos el calor humano,<br>que ninguna pantalla podrá darnos de mano.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- SLIDE 5: ARGUMENTATIVE -->
+<div class="slide bg-surface-deep" id="slide-4">
+<h4 class="text-3xl font-bold heading-impact mb-8 text-center text-amber-500">Impacto Sociocultural</h4>
+<div class="grid grid-cols-2 gap-[1px] bg-line rounded-xl overflow-hidden border border-line">
+<div class="bg-surface-container p-6 text-center">
+<h5 class="text-xs font-black mb-4 uppercase tracking-tighter opacity-50">Privacidad</h5>
+<p class="text-xs opacity-80 italic">"El derecho a la invisibilidad en un mundo de transparencia radical."</p>
+</div>
+<div class="bg-surface-container-high p-6 text-center border-l border-line">
+<h5 class="text-xs font-black mb-4 uppercase tracking-tighter text-accent-cyan">Identidad</h5>
+<p class="text-xs opacity-80 italic">"La construcción del yo a través de la interfaz y el algoritmo."</p>
+</div>
+</div>
+<p class="mt-8 text-center text-xs opacity-60">Análisis crítico de la transmutación de lo humano en dato consumible.</p>
+</div>
+<!-- SLIDE 6: ACADEMIC -->
+<div class="slide bg-surface-deep" id="slide-5">
+<div class="max-w-3xl mx-auto">
+<h4 class="text-3xl font-bold heading-impact mb-6 text-center text-emerald-500">Estrategias de Gamificación</h4>
+<div class="p-6 glass-panel rounded-xl">
+<h5 class="text-xs font-bold text-emerald-500 uppercase mb-3">Triviño García et al.</h5>
+<p class="text-sm opacity-90 leading-relaxed">
+          Estudio sobre el aprendizaje autónomo en estudiantes universitarios. <br><br>
+<span class="text-emerald-400 font-bold">• Hallazgo:</span> La gamificación aumenta la motivación pero requiere una mediación pedagógica crítica para no caer en la superficialidad del estímulo.
+        </p>
+</div>
+</div>
+</div>
+<!-- SLIDE 7: CONCLUSIONS -->
+<div class="slide bg-gradient-to-br from-surface-deep to-accent-cyan/10" id="slide-6">
+<div class="grid md:grid-cols-2 gap-8 items-center h-full">
+<div>
+<h4 class="text-4xl font-bold heading-impact mb-6">Integración <span class="text-accent-cyan">Multimedia</span></h4>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-accent-cyan mt-1">podcasts</span>
+<p class="text-sm">Podcast Spotify: Reflexiones sonoras.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-accent-cyan mt-1">video_library</span>
+<p class="text-sm">YouTube: El abismo en movimiento.</p>
+</div>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-xl rotate-2">
+<div class="aspect-video bg-black rounded-lg flex items-center justify-center relative overflow-hidden group">
+<img alt="Multimedia" class="absolute inset-0 w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida/ADBb0ug66Uo3GN--y5S7q6nVtd2zPIGS5fKp97K2HWwinbhePQMRpbKWPA2XUt7ao5cYK87Sy3bbszWcLSlV5ci9n5hfxWMoUknp31qmjmqIZpljiS2zHJ8cImcTIp3S3p28ZipF8saDwOuioxEA_LSXFiV_J5vkB8g-AiVV0GRKToMte6iW6gIfyadwIx34URgHrrxqii36a-ekF1M8YizPVJAYuQNwKGQGyZfMxQcBu2p4zK9U3JX5WZrNoaIg">
+<div class="z-10 text-center">
+<span class="material-symbols-outlined text-4xl text-accent-cyan mb-2">dynamic_feed</span>
+<span class="block text-[10px] font-bold uppercase tracking-widest">Contenido Transmedia</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slider Controls -->
+<div class="p-6 border-t border-line flex items-center justify-between bg-surface-container/50">
+<div class="flex gap-4">
+<button class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-line flex items-center justify-center hover:bg-white/10 transition-colors group" onclick="prevSlide()">
+<span class="material-symbols-outlined text-on-surface group-hover:text-accent-cyan">chevron_left</span>
+</button>
+<button class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-line flex items-center justify-center hover:bg-white/10 transition-colors group" onclick="nextSlide()">
+<span class="material-symbols-outlined text-on-surface group-hover:text-accent-cyan">chevron_right</span>
+</button>
+</div>
+<div class="flex gap-2 items-center" id="dot-container"><div class="dot h-2 rounded-full cursor-pointer transition-all bg-accent-cyan w-6" id="dot-0"></div><div class="dot w-2 h-2 rounded-full cursor-pointer transition-all bg-white/20" id="dot-1"></div><div class="dot w-2 h-2 rounded-full cursor-pointer transition-all bg-white/20" id="dot-2"></div><div class="dot w-2 h-2 rounded-full cursor-pointer transition-all bg-white/20" id="dot-3"></div><div class="dot w-2 h-2 rounded-full cursor-pointer transition-all bg-white/20" id="dot-4"></div><div class="dot w-2 h-2 rounded-full cursor-pointer transition-all bg-white/20" id="dot-5"></div><div class="dot w-2 h-2 rounded-full cursor-pointer transition-all bg-white/20" id="dot-6"></div></div>
+<div class="hidden sm:block">
+<span class="text-xs font-bold tracking-widest text-on-surface-variant uppercase">Interactive Deck</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Hero / Intro -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
+<div class="lg:col-span-8 glass-panel p-10 rounded-card relative overflow-hidden group">
+<div class="relative z-10">
+<span class="eyebrow-gradient text-sm block mb-4">Bienvenidos al Abismo</span>
+<h2 class="text-4xl md:text-5xl font-bold heading-impact mb-6">Explorando los límites de la atención digital</h2>
+<p class="text-lg text-on-surface-variant max-w-2xl">
+            Este portafolio recopila una serie de reflexiones críticas, ficciones y análisis académicos producidos bajo la premisa de que nuestra percepción del tiempo y el espacio ha sido alterada permanentemente por el cristal líquido.
+          </p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+<div class="p-4 rounded-xl bg-white/5 border border-line">
+<strong class="text-2xl font-bold block text-accent-cyan">05</strong>
+<span class="text-xs uppercase tracking-widest opacity-60">Géneros Literarios</span>
+</div>
+<div class="p-4 rounded-xl bg-white/5 border border-line">
+<strong class="text-2xl font-bold block text-accent-violet">12</strong>
+<span class="text-xs uppercase tracking-widest opacity-60">Ensayos Críticos</span>
+</div>
+<div class="p-4 rounded-xl bg-white/5 border border-line">
+<strong class="text-2xl font-bold block text-primary">∞</strong>
+<span class="text-xs uppercase tracking-widest opacity-60">Scroll Infinito</span>
+</div>
+</div>
+</div>
+<!-- Decorative Glow -->
+<div class="absolute -bottom-20 -right-20 w-80 h-80 bg-accent-cyan/10 blur-[100px] rounded-full group-hover:bg-accent-cyan/20 transition-colors"></div>
+</div>
+<div class="lg:col-span-4 glass-panel p-8 rounded-card flex flex-col justify-between">
+<div>
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan">groups</span>
+            Equipo de Trabajo
+          </h3>
+<ul class="space-y-4">
+<li class="flex flex-col group cursor-default">
+<span class="text-sm font-bold text-accent-cyan transition-colors">Laura Villalba</span>
+<span class="text-[10px] uppercase tracking-wider opacity-60">Editora y Estilo</span>
+</li>
+<li class="flex flex-col group cursor-default">
+<span class="text-sm font-bold text-accent-violet transition-colors">Mabel Rincon</span>
+<span class="text-[10px] uppercase tracking-wider opacity-60">Creadora Literaria</span>
+</li>
+<li class="flex flex-col group cursor-default">
+<span class="text-sm font-bold text-primary transition-colors">Juan Montealegre</span>
+<span class="text-[10px] uppercase tracking-wider opacity-60">Investigador Académico</span>
+</li>
+<li class="flex flex-col group cursor-default">
+<span class="text-sm font-bold text-white transition-colors">Manuel Cruz</span>
+<span class="text-[10px] uppercase tracking-wider opacity-60">Productor Multimedia</span>
+</li>
+<li class="flex flex-col group cursor-default">
+<span class="text-sm font-bold text-accent-cyan transition-colors">Camila Bermudez</span>
+<span class="text-[10px] uppercase tracking-wider opacity-60">Diseñadora de Interfaz y Gestora</span>
+</li>
+</ul>
+</div>
+<div class="mt-6 pt-6 border-t border-line">
+<p class="text-xs italic text-on-surface-variant">"La interfaz no es una herramienta, es un hábitat."</p>
+</div>
+</div>
+</section>
+<!-- NARRATIVO -->
+<section class="mb-12 scroll-mt-20" id="narrativo">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-8 h-[2px] bg-red-500"></span>
+<h2 class="text-2xl font-bold uppercase tracking-widest text-red-400">Narrativo</h2>
+</div>
+<article class="glass-panel rounded-card overflow-hidden group">
+<div class="relative overflow-hidden h-[450px]">
+<img alt="Student with monitor glow" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/ADBb0ujxCgKI8tfunDK3IPaC6X2lMF2CPQ0mWNpx_U8wn8t78DqbuoQjVqUwnMa2HZ-8V9iZk5GDaet37TrKmyYvRDWqdNwPRR3tjE-R4yStptcMMyIuqvER5MYh4zl-cr3pT_36XpekGTjaqxl0IxJ1nQMtlo5yCbo2hwgp6r1cR0X1L0ZbGYBhMsYf8DHjg0XHaZBUFwHOtGo0Rl3jU7Sv4dVMFv0v4pglKZoVq3pWckpL64iMY3TdshnjQ8I">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-deep via-transparent to-transparent"></div>
+<div class="absolute bottom-8 left-8 right-8">
+<span class="px-3 py-1 bg-red-500 text-white text-[10px] font-black rounded-full uppercase tracking-widest mb-3 inline-block">Ficción Digital</span>
+<h3 class="text-3xl md:text-4xl font-bold heading-impact">La Trampa del Próximo Episodio</h3>
+</div>
+</div>
+<div class="p-8 md:p-10">
+<div class="flex items-center gap-4 text-sm text-on-surface-variant mb-6 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> 12 Mayo, 2024</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 12 min lectura</span>
+</div>
+<div class="space-y-6 text-lg text-on-surface leading-relaxed">
+<p class="">
+              Eran las tres de la mañana cuando el contador regresó. 00:05... 00:04... El azul de la pantalla iluminaba el rostro de Julián, cuya expresión se había vaciado de cualquier voluntad propia. "Solo uno más", susurró, aunque ya no sabía qué estaba viendo. El segundero digital latía en el centro de la pantalla como un marcapasos externo, dictando el ritmo de su sistema nervioso.
+            </p>
+<p class="">
+              La lucha interna era feroz pero silenciosa. Una parte de su mente, sepultada bajo capas de fatiga, gritaba que mañana el mundo seguiría girando y que el cansancio sería un verdugo implacable. Pero la otra parte, la que respondía al brillo del neón y a la promesa de la siguiente revelación narrativa, estaba hipnotizada. Cinco segundos es un intervalo diseñado con precisión quirúrgica: demasiado corto para que la razón tome el control, lo suficientemente largo para que la anticipación se convierta en una necesidad física.
+            </p>
+<div class="p-8 glass-panel bg-red-500/5 border-l-4 border-red-500 rounded-r-xl italic text-on-surface-variant">
+              "El algoritmo no busca que te guste el contenido; busca que no puedas dejar de mirarlo. Es una arquitectura del deseo perpetuado, un laberinto sin salida donde el minotauro es tu propia atención fragmentada."
+            </div>
+<p class="">
+              Cuando el contador llegó a cero, la pantalla se oscureció apenas un milisegundo antes de estallar en un nuevo universo de imágenes. Julián sintió una punzada de alivio, una descarga de dopamina que acalló instantáneamente la voz de la sensatez. El ciclo se reiniciaba. Ya no importaba el clímax o la resolución de la trama. Lo único que importaba era el flujo constante, el río de bits que le impedía enfrentarse al silencio de su propia habitación. El "próximo episodio" no era contenido; era un refugio contra la realidad, una trampa de cristal de la que no deseaba escapar.
+            </p>
+</div>
+</div>
+</article>
+</section>
+<!-- LIRICO -->
+<section class="mb-12 scroll-mt-20" id="lirico">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-8 h-[2px] bg-accent-violet"></span>
+<h2 class="text-2xl font-bold uppercase tracking-widest text-accent-violet">Lírico</h2>
+</div>
+<article class="glass-panel p-10 rounded-card bg-gradient-to-br from-surface-container/30 to-accent-violet/5">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div>
+<h3 class="text-4xl font-bold heading-impact mb-8 text-white">La Era Digital!</h3>
+<div class="space-y-6 font-light text-lg leading-relaxed italic h-[500px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-accent-violet/20">
+<p class="">Infinita información por doquier,<br>desde las redes hasta el amanecer,<br>en pantallas brillantes y frías,<br>vivimos nuestras alegrías y agonías.</p>
+<p class="">Con un solo clic el mundo se abre,<br>distancias se acortan, el tiempo se labre,<br>pero en medio de tanta conexión,<br>¿dónde quedó nuestra verdadera emoción?</p>
+<p class="">La tecnología avanza sin cesar,<br>nuevos horizontes por explorar,<br>más no olvidemos el calor humano,<br>que ninguna pantalla podrá darnos de mano.</p>
+<p class="">En este mar de bits y de bytes,<br>busquemos la luz que nos haga brillar,<br>no perdamos la esencia de ser,<br>en esta era digital que nos hace crecer.</p>
+<p class="">Que el progreso no nos ciegue la vista,<br>que la empatía sea nuestra mayor conquista,<br>y en este mundo de cables y pantallas,<br>sigamos siendo humanos en todas las batallas.</p>
+<div class="pt-4 text-sm font-bold uppercase tracking-widest opacity-60 not-italic">— EmilioDr.</div>
+</div>
+</div>
+<div class="relative">
+<img alt="Digital Era Concept" class="rounded-2xl border border-line shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALuiLZSd0xuHsjdBadofTdNqcMHLr3tLpmB8Xg4N50UAXZDITz94C-OC3DRDCNpsou7AArTM_ahdr51oDKfCkNsahvh1WQvzfGytCCeoZwQhZgMwiHSVuXUh6NVb0WzPmO-G5_dYMrpCNeErQP0Cp0eUk-uqaVSR2Nl0T4t0z9OK6eu2VAom3JFAhbZl2e8qxqapQsR2Vxfo5I5fQMzC-9FvGHq279h8bl9dHRWr_swc0WRTULqyWJqXR4mmgqufHCb6znshb8BCUc">
+<div class="absolute inset-0 bg-accent-violet/10 rounded-2xl mix-blend-overlay"></div>
+</div>
+</div>
+</article>
+</section>
+<!-- ARGUMENTATIVO -->
+<section class="mb-12 scroll-mt-20" id="argumentativo">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-8 h-[2px] bg-amber-500"></span>
+<h2 class="text-2xl font-bold uppercase tracking-widest text-amber-500">Argumentativo</h2>
+</div>
+<article class="glass-panel p-10 rounded-card">
+<div class="max-w-4xl mx-auto">
+<h3 class="text-3xl font-bold heading-impact mb-8">El Derecho a la Invisibilidad</h3>
+<div class="space-y-6 text-on-surface-variant">
+<p class="">
+              En la era de la transparencia radical, la privacidad se ha convertido en un acto de rebelión. No se trata solo de proteger datos, sino de preservar el derecho a la ambigüedad, al error no registrado y a la evolución personal lejos del ojo vigilante de la red.
+            </p>
+<div class="grid md:grid-cols-2 gap-6 my-10">
+<div class="p-6 glass-panel rounded-xl bg-amber-500/5 border border-amber-500/20">
+<h4 class="font-bold text-amber-500 mb-2 uppercase text-xs tracking-widest">Punto de Vista A</h4>
+<p class="text-sm">La visibilidad total fomenta la honestidad social y la rendición de cuentas en tiempo real.</p>
+</div>
+<div class="p-6 glass-panel rounded-xl bg-accent-cyan/5 border border-accent-cyan/20">
+<h4 class="font-bold text-accent-cyan mb-2 uppercase text-xs tracking-widest">Punto de Vista B</h4>
+<p class="text-sm">La vigilancia constante inhibe la creatividad y la exploración de identidades no conformistas.</p>
+</div>
+</div>
+<p class="">
+              Concluimos que la arquitectura de las plataformas actuales está diseñada para castigar el anonimato y premiar la sobreexposición, creando una cultura donde "existir" es sinónimo de "ser visto".
+            </p>
+</div>
+</div>
+</article>
+</section>
+<!-- ACADEMICO -->
+<section class="mb-12 scroll-mt-20" id="academico">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-8 h-[2px] bg-emerald-500"></span>
+<h2 class="text-2xl font-bold uppercase tracking-widest text-emerald-500">Académico</h2>
+</div>
+<article class="glass-panel p-10 rounded-card">
+<div class="flex flex-col gap-10">
+<div class="border-b border-line pb-8">
+<h3 class="text-2xl md:text-3xl font-bold mb-4 text-emerald-400">Estrategias de gamificación en aprendizaje autónomo en estudiantes universitarios de pregrado</h3>
+<p class="text-sm font-bold opacity-60 uppercase tracking-widest mb-2">Triviño García, J. L., et al.</p>
+<div class="flex flex-wrap gap-4 mt-4">
+<span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-bold border border-emerald-500/20">METODOLOGÍA CUALITATIVA</span>
+<span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-bold border border-emerald-500/20">EDUCACIÓN SUPERIOR</span>
+<span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-bold border border-emerald-500/20">GAMIFICACIÓN</span>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-12">
+<div class="space-y-8">
+<div>
+<h4 class="text-xs font-black uppercase text-emerald-500 mb-3 tracking-tighter">El Problema</h4>
+<p class="text-sm leading-relaxed opacity-80">La falta de compromiso y motivación en entornos de aprendizaje virtual tradicionales, donde la autonomía del estudiante se ve comprometida por la falta de estímulos interactivos y la desconexión emocional con el contenido.</p>
+</div>
+<div>
+<h4 class="text-xs font-black uppercase text-emerald-500 mb-3 tracking-tighter">La Propuesta</h4>
+<p class="text-sm leading-relaxed opacity-80">Implementar mecánicas de juego (puntos, niveles, feedback inmediato) integradas en el currículo para fomentar la autorregulación y el interés intrínseco del estudiante por su propio proceso formativo.</p>
+</div>
+<div>
+<h4 class="text-xs font-black uppercase text-emerald-500 mb-3 tracking-tighter">Metodología</h4>
+<p class="text-sm leading-relaxed opacity-80">Revisión sistemática de literatura y estudios de caso en universidades de pregrado, analizando el impacto de las plataformas gamificadas en el rendimiento académico y la percepción del estudiante.</p>
+</div>
+</div>
+<div class="space-y-8">
+<div>
+<h4 class="text-xs font-black uppercase text-emerald-500 mb-3 tracking-tighter">Resultados</h4>
+<p class="text-sm leading-relaxed opacity-80">Se observa un incremento significativo en el tiempo de permanencia en las tareas y una mejora en la resolución de problemas complejos. Sin embargo, la efectividad depende directamente del equilibrio entre el desafío y la recompensa.</p>
+</div>
+<div class="p-6 bg-emerald-500/5 rounded-2xl border border-emerald-500/20">
+<h4 class="text-xs font-black uppercase text-emerald-500 mb-3 tracking-tighter">Conclusión</h4>
+<p class="text-sm leading-relaxed font-medium">"La gamificación no es un fin en sí mismo, sino un catalizador. Su éxito en el aprendizaje autónomo reside en la capacidad del docente para transformar el juego en una experiencia de reflexión crítica y no meramente en un sistema de recompensas vacías."</p>
+</div>
+<div class="pt-4">
+<a class="w-full py-4 bg-emerald-500 text-surface-deep font-bold rounded-xl hover:bg-emerald-400 transition-colors flex items-center justify-center gap-3" href="./1092_copia.pdf" target="_blank"><span class="material-symbols-outlined">description</span>Descargar Paper Completo (PDF)</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- MULTIMEDIA -->
+<section class="mb-12 scroll-mt-20" id="multimedia">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-8 h-[2px] bg-accent-cyan"></span>
+<h2 class="text-2xl font-bold uppercase tracking-widest text-accent-cyan">Multimedia / Valor Agregado</h2>
+</div>
+<div class="grid lg:grid-cols-2 gap-8">
+<div class="glass-panel p-6 rounded-card">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-cyan">play_circle</span>
+            Video-Ensayo: Análisis Crítico
+          </h3>
+<div class="aspect-video bg-black rounded-xl overflow-hidden shadow-lg border border-line flex items-center justify-center">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="w-full h-full" frameborder="0" src="https://www.youtube.com/embed/sUly9bEZZqo"></iframe>
+</div>
+<p class="mt-4 text-sm text-on-surface-variant italic">Perspectivas visuales sobre la condición humana en la era de los algoritmos.</p>
+</div>
+<div class="glass-panel p-6 rounded-card">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-violet">mic</span>
+            Podcast: Diálogos Híbridos
+          </h3>
+<div class="rounded-xl overflow-hidden shadow-lg border border-line bg-[#121212]">
+<iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" frameborder="0" height="232" loading="lazy" src="https://open.spotify.com/embed/episode/2UG26A4gkUDtPc73uDCHAH?utm_source=generator&amp;theme=0" style="border-radius:12px" width="100%"></iframe>
+</div>
+<p class="mt-4 text-sm text-on-surface-variant italic">Escucha nuestra reflexión sobre la evolución de la identidad en entornos virtuales.</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="py-12 border-t border-line text-center text-sm text-on-surface-variant">
+<div class="flex justify-center gap-8 mb-8">
+<a class="hover:text-accent-cyan transition-colors" href="#">Twitter (X)</a>
+<a class="hover:text-accent-violet transition-colors" href="#">Instagram</a>
+<a class="hover:text-primary transition-colors" href="#">GitHub</a>
+</div>
+<div class="max-w-3xl mx-auto px-6">
+<p class="font-bold text-white mb-4">© 2024 Abismo. Proyecto Final Corte III - Humanidades.</p>
+<div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[10px] uppercase tracking-widest opacity-60">
+<span class="">Laura Villalba</span>
+<span class="">Mabel Rincon</span>
+<span class="">Juan Montealegre</span>
+<span class="">Manuel Cruz</span>
+<span class="">Camila Bermudez</span>
+</div>
+<p class="mt-8 text-[10px] uppercase tracking-widest opacity-30">Diseñado para la era Cyber-Humanista.</p>
+</div>
+</footer>
+</div>
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const dotContainer = document.getElementById('dot-container');
+
+    function initDots() {
+      dotContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = `dot w-2 h-2 rounded-full cursor-pointer transition-all ${i === 0 ? 'bg-accent-cyan w-6' : 'bg-white/20'}`;
+        dot.id = `dot-${i}`;
+        dot.onclick = () => showSlide(i);
+        dotContainer.appendChild(dot);
+      }
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        const dot = document.getElementById(`dot-${i}`);
+        if (dot) {
+          dot.classList.remove('bg-accent-cyan', 'w-6');
+          dot.classList.add('bg-white/20', 'w-2');
+        }
+      });
+      
+      slides[index].classList.add('active');
+      const activeDot = document.getElementById(`dot-${index}`);
+      if (activeDot) {
+        activeDot.classList.add('bg-accent-cyan', 'w-6');
+        activeDot.classList.remove('bg-white/20', 'w-2');
+      }
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      let next = (currentSlide + 1) % totalSlides;
+      showSlide(next);
+    }
+
+    function prevSlide() {
+      let prev = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(prev);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initDots();
+      showSlide(0);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+
+
+</body></html>
